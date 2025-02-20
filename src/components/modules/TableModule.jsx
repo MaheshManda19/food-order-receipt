@@ -13,7 +13,9 @@ const TableModule = ({ receiptData = [], rejectiondata = [] }) => {
   useEffect(() => {
     setReceipts(receiptData);
     setRejectiondata(rejectiondata);
-  }, [receiptData, rejectiondata]);
+  }, [receiptData]);
+
+  console.log('rej',rejectiondata);
 
   const sortData = (key) => {
     let direction = "asc";
@@ -43,7 +45,7 @@ const TableModule = ({ receiptData = [], rejectiondata = [] }) => {
   };
 
   // **Search Functionality**
-  const filteredReceipts = receipts.filter((receipt) => {
+  const filteredReceipts = receipts?.filter((receipt) => {
     const fullName = `${receipt.staff.firstname} ${receipt.staff.lastname}`.toLowerCase();
     return (
       fullName.includes(searchQuery.toLowerCase()) ||
@@ -80,7 +82,7 @@ const TableModule = ({ receiptData = [], rejectiondata = [] }) => {
         </thead>
         <tbody>
           {filteredReceipts?.length > 0 ? (
-            filteredReceipts.map((receipt) => (
+            filteredReceipts?.map((receipt) => (
               <tr key={receipt.id} onClick={() => setSelectedReceipt(receipt)} className="clickable-row">
                 <td>{new Date(receipt.submissiontime).toLocaleString()}</td>
                 <td>{`${receipt.staff.firstname} ${receipt.staff.lastname}`}</td>
